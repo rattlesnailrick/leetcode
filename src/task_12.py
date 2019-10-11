@@ -26,6 +26,7 @@ class Solution:
 
         return "".join(output)
 
+
 if __name__ == "__main":
     solution = Solution()
     for i in range(100):

@@ -3,11 +3,14 @@ class Solution(object):
         if not pattern:
             return not text
 
-        first_match = bool(text) and pattern[0] in {text[0], '.'}
+        first_match = bool(text) and pattern[0] in {text[0], "."}
 
-        if len(pattern) >= 2 and pattern[1] == '*':
-            return (self.isMatch(text, pattern[2:]) or
-                    first_match and self.isMatch(text[1:], pattern))
+        if len(pattern) >= 2 and pattern[1] == "*":
+            return (
+                self.isMatch(text, pattern[2:])
+                or first_match
+                and self.isMatch(text[1:], pattern)
+            )
         else:
             return first_match and self.isMatch(text[1:], pattern[1:])
 
@@ -42,7 +45,7 @@ class Solution(object):
         # SUBSTRING MATCH
         for substring in self.string_slicer(s):
             if self.pattern_match(substring, p[0]):
-                reduced_string = s[len(substring):]
+                reduced_string = s[len(substring) :]
                 if self.isMatch(reduced_string, p[2:]):
                     return True
             else:
@@ -56,11 +59,19 @@ class Solution(object):
         while idx < len(p) - 3:
             if p[idx + 1] == "*" and p[idx + 3] == "*":
                 if [idx] == "." or p[idx] == p[idx + 2]:
-                    p = "".join([char for i, char in enumerate(p) if i not in [idx + 2, idx + 3]])
+                    p = "".join(
+                        [
+                            char
+                            for i, char in enumerate(p)
+                            if i not in [idx + 2, idx + 3]
+                        ]
+                    )
                     idx = 0
                     continue
                 elif [idx + 2] == ".":
-                    p = "".join([char for i, char in enumerate(p) if i not in [idx, idx + 1]])
+                    p = "".join(
+                        [char for i, char in enumerate(p) if i not in [idx, idx + 1]]
+                    )
                     idx = 0
                     continue
             idx += 1
